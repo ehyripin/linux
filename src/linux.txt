@@ -1,0 +1,28 @@
+1. NVIDIA driver reset
+https://forums.developer.nvidia.com/t/nvidia-smi-has-failed-because-it-couldnt-communicate-with-the-nvidia-driver-make-sure-that-the-latest-nvidia-driver-is-installed-and-running/197141
+https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local
+
+    Even with those commands, the issue wasn’t solved.
+    Eventually, the fastest way to fix 2 machines with a package manager is to purge all Nvidia & Cuda,did it by:
+
+    sudo apt-get remove --purge '^nvidia-.*'
+    sudo apt-get remove --purge '^libnvidia-.*'
+    sudo apt-get remove --purge '^cuda-.*'
+
+    Then after it’s clean ran that:
+    sudo apt-get install linux-headers-$(uname -r)
+
+    From here - it’s the same for all VMs:
+    Download latest run file from Nvidia site, and run it, accept if needed to upgrade current, or install from scratch.
+    The driver is back to work.
+
+    The issue was started after did some updates, and the Linux kernel was changed.
+
+-----------------------------------------------------------------------------------------------------
+
+2. snap update unable
+https://askubuntu.com/questions/1411104/unable-to-update-snap-store-cannot-refresh-snap-store-snap-snap-store-ha
+
+    sudo snap refresh
+    sudo pkill snap-store && sudo snap refresh snap-store
+
